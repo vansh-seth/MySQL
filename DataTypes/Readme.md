@@ -39,7 +39,7 @@ The following table illustrates all date and time data types that are supported 
 
 | Data Type        | Maximum Size                 | Explanation                                              |
 | ---------------- | ---------------------------- | -------------------------------------------------------- |
-| YEAR`[(2|4)]`      | Year value as 2 digits or 4 digits| Default is 4 digits. It takes 1 byte for storage. |
+| YEAR[(2/4)]      | Year value as 2 digits or 4 digits| Default is 4 digits. It takes 1 byte for storage. |
 | DATE             | Values range from '1000-01-01' to '9999-12-31'| Displayed as 'yyyy-mm-dd'. It takes 3 bytes for storage. |
 | TIME             | Values range from '-838:59:59' to '838:59:59'| Displayed as 'HH:MM:SS'. It takes 3 bytes plus fractional seconds for storage. |
 | DATETIME         | Values range from '1000-01-01 00:00:00' to '9999-12-31 23:59:59'| Displayed as 'yyyy-mm-dd hh:mm:ss'. It takes 5 bytes plus fractional seconds for storage. |
