@@ -17,19 +17,19 @@ MySQL has all essential SQL numeric data types, including exact and approximate 
 
 The following table contains all numeric data types that are supported in MySQL:
 
-| Data Type     | Syntax           | Description                                             |
-| ------------- | ----------------- | ------------------------------------------------------- |
-| TINYINT       |                  | A very small integer that can be signed or unsigned.    |
-| SMALLINT      |                  | A small integer that can be signed or unsigned.         |
-| MEDIUMINT     |                  | A medium-sized integer that can be signed or unsigned.  |
-| INT           |                  | A normal-sized integer that can be signed or unsigned.  |
-| BIGINT        |                  | A large integer that can be signed or unsigned.          |
-| FLOAT(m,d)    |                  | A floating-point number with specified display length and number of decimals. |
-| DOUBLE(m,d)   |                  | A double-precision floating-point number with specified display length and number of decimals. |
-| DECIMAL(m,d)  |                  | An unpacked floating-point number with specified display length and number of decimals. |
-| BIT(m)        |                  | Used for storing bit values into the table column.       |
-| BOOL          |                  | Used only for the true and false condition.              |
-| BOOLEAN       |                  | Similar to BOOL.                                        |
+| Data Type     | Description                                             |
+| ------------- | ------------------------------------------------------- |
+| TINYINT       | A very small integer that can be signed or unsigned. range is from -128 to 127    |
+| SMALLINT      | A small integer that can be signed or unsigned. range is from -32768 to 32767         |
+| MEDIUMINT     | A medium-sized integer that can be signed or unsigned. range is from -8388608 to 8388607.  |
+| INT           | A normal-sized integer that can be signed or unsigned. range is from -2147483648 to 2147483647 |
+| BIGINT        | A large integer that can be signed or unsigned. range is from -9223372036854775808 to 9223372036854775807         |
+| FLOAT(m,d)    | It is a floating-point number that cannot be unsigned. You can define the display length (m) and the number of decimals (d). This is not required and will default to 10,2, where 2 is the number of decimals, and 10 is the total number of digits (including decimals). Decimal precision can go to 24 places for a float type. It requires 2 bytes for storage. |
+| DECIMAL(m,d)  | An unpacked floating-point number that cannot be unsigned. In unpacked decimals, each decimal corresponds to one byte. Defining the display length (m) and the number of decimals (d) is required. Numeric is a synonym for decimal.  |
+| DOUBLE(m,d)   | It is a double-precision floating-point number that cannot be unsigned. You can define the display length (m) and the number of decimals (d). This is not required and will default to 16,4, where 4 is the number of decimals. Decimal precision can go to 53 places for a double. Real is a synonym for double. It requires 8 bytes for storage. |
+| BIT(m)        | Used for storing bit values into the table column. range of 1 to 64.       |
+| BOOL          | Used only for the true and false condition.              |
+| BOOLEAN       | Similar to BOOL.                                        |
 
 ## Date and Time Data Type
 
