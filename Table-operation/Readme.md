@@ -54,3 +54,137 @@ DESCRIBE employee_table;
 
 
 This will display the details of the "employee_table" including column names, data types, and constraints.
+
+## MySQL ALTER Table
+
+The `ALTER TABLE` statement in MySQL is used to modify an existing table. This can involve adding or dropping columns, modifying column definitions, or renaming columns or the entire table. Below are examples of various modifications you can make using `ALTER TABLE`.
+
+### 1) ADD a Column in the Table
+
+To add a new column, you can use the `ADD` command:
+
+```sql
+ALTER TABLE cus_tbl
+ADD cus_age varchar(40) NOT NULL;
+```
+
+### 2) Add Multiple Columns in the Table
+
+You can add multiple columns in a single `ALTER TABLE` statement:
+
+```sql
+ALTER TABLE cus_tbl
+ADD cus_address varchar(100) NOT NULL AFTER cus_surname,
+ADD cus_salary int(100) NOT NULL AFTER cus_age;
+```
+
+### 3) MODIFY Column in the Table
+
+Use the `MODIFY` command to change the column definition:
+
+```sql
+ALTER TABLE cus_tbl
+MODIFY cus_surname varchar(50) NULL;
+```
+
+### 4) DROP Column in the Table
+
+To remove a column from a table, you can use the `DROP COLUMN` command:
+
+```sql
+ALTER TABLE cus_tbl
+DROP COLUMN cus_address;
+```
+
+### 5) RENAME Column in the Table
+
+To rename a column, use the `CHANGE COLUMN` command:
+
+```sql
+ALTER TABLE cus_tbl
+CHANGE COLUMN cus_surname cus_title varchar(20) NOT NULL;
+```
+
+### 6) RENAME Table
+
+To rename the entire table, use the `RENAME TO` command:
+
+```sql
+ALTER TABLE cus_tbl
+RENAME TO cus_table;
+```
+
+These statements demonstrate various modifications that can be made to a MySQL table using the `ALTER TABLE` statement. Modify them as needed for your specific use case.
+
+## MySQL Show/List Tables
+
+In MySQL, the `SHOW TABLES` command is used to display the list of tables in the selected database. Here's an overview of how to use it:
+
+1. Open the MySQL Command Line Client and log in to the MySQL database server.
+
+   ```sql
+   mysql -u your_username -p
+   ```
+
+2. Choose the specific database using the `USE` command.
+
+   ```sql
+   USE mystudentdb;
+   ```
+
+3. Execute the `SHOW TABLES` command.
+
+   ```sql
+   SHOW TABLES;
+   ```
+
+   This will display the list of tables in the selected database.
+
+   ```sql
+   +----------------------+
+   | Tables_in_mystudentdb |
+   +----------------------+
+   | students             |
+   | courses              |
+   | grades               |
+   +----------------------+
+   ```
+
+### Show Tables Using Pattern Matching
+
+You can use the `LIKE` clause with the `SHOW TABLES` command to filter the returned tables based on a pattern.
+
+```sql
+SHOW TABLES LIKE "stud%";
+```
+
+This command will display tables whose names start with "stud".
+
+### Show Tables in a Different Database
+
+To list tables from a different database without switching to it, you can use the `IN` or `FROM` clause followed by the database name.
+
+```sql
+SHOW TABLES IN another_database;
+-- OR
+SHOW TABLES FROM another_database;
+```
+
+### Show Tables Using WHERE Clause
+
+The `WHERE` clause can be used to filter tables based on specific conditions.
+
+```sql
+SHOW TABLES FROM sakila WHERE table_type = "VIEW";
+```
+
+This command will display only the views in the `sakila` database.
+
+```sql
+SHOW TABLES IN mystudentdb WHERE Tables_in_mystudentdb = "employees";
+```
+
+This command will display the table named "employees" in the `mystudentdb` database.
+
+These variations of the `SHOW TABLES` command provide flexibility in listing and filtering tables based on different criteria.
+
