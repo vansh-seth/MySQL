@@ -188,3 +188,52 @@ This command will display the table named "employees" in the `mystudentdb` datab
 
 These variations of the `SHOW TABLES` command provide flexibility in listing and filtering tables based on different criteria.
 
+In MySQL, you can rename a table using either the `RENAME TABLE` statement or the `ALTER TABLE` statement. The examples below demonstrate both methods:
+
+1. **Using `RENAME TABLE` Statement:**
+
+   Suppose you have a table named `employee`, and you want to rename it to `customer`. You can execute the following query:
+
+   ```sql
+   RENAME TABLE employee TO customer;
+   ```
+
+   This will rename the table `employee` to `customer`.
+
+2. **Using `ALTER TABLE` Statement:**
+
+   The `ALTER TABLE` statement can also be used to rename an existing table. The syntax is as follows:
+
+   ```sql
+   ALTER TABLE old_table_name RENAME TO new_table_name;
+   ```
+
+   If you want to rename the table `garments` to `shirts`, you can execute:
+
+   ```sql
+   ALTER TABLE garments RENAME TO shirts;
+   ```
+
+   This will rename the table `garments` to `shirts`.
+
+3. **Renaming Temporary Table:**
+
+   If you have a temporary table and want to rename it, you can use the `ALTER TABLE` statement as the `RENAME TABLE` statement doesn't support renaming temporary tables directly.
+
+   ```sql
+   CREATE TEMPORARY TABLE Students (
+       name VARCHAR(40) NOT NULL,
+       total_marks DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+       total_subjects INT UNSIGNED NOT NULL DEFAULT 0
+   );
+
+   -- Insert values into the temporary table
+
+   -- Rename the temporary table using ALTER TABLE
+   ALTER TABLE Students RENAME TO student_info;
+   ```
+
+   This will rename the temporary table `Students` to `student_info`.
+
+Both methods allow you to change the name of a table in MySQL. Choose the one that suits your needs and the specific context in which you are working.
+
