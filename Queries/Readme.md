@@ -388,3 +388,169 @@ WHERE Employees.emp_id = 102;
 ```
 
 *Always ensure you have a backup before performing delete operations, especially when deleting a large number of records or when conditions are critical.*
+
+
+### MySQL SELECT Statement
+
+The `SELECT` statement in MySQL is used to retrieve data from one or more tables. It allows you to fetch records based on specified criteria, work with different scripting languages like PHP or Ruby, and handle various operations on data.
+
+#### `SELECT` Statement Syntax
+
+The general syntax of the `SELECT` statement is as follows:
+
+```sql
+SELECT field_name1, field_name2, ... field_nameN
+FROM table_name1, table_name2, ...
+[WHERE condition]
+[GROUP BY field_name(s)]
+[HAVING condition]
+[ORDER BY field_name(s)]
+[OFFSET M] [LIMIT N];
+```
+
+For selecting all fields:
+
+```sql
+SELECT * FROM tables
+[WHERE conditions]
+[GROUP BY fieldNames(s)]
+[HAVING condition]
+[ORDER BY fieldNames(s)]
+[OFFSET M] [LIMIT N];
+```
+
+#### Parameters Explanation
+
+- **field_name(s) or ***: Specifies one or more columns to be returned in the result set. The asterisk (*) returns all fields of a table.
+
+- **table_name(s)**: The name of the tables from which data is to be fetched.
+
+- **WHERE**: An optional clause that specifies conditions to filter and return only matched records.
+
+- **GROUP BY**: An optional clause that groups data from multiple records based on one or more columns.
+
+- **HAVING**: An optional clause that works with the GROUP BY clause, returning only those rows where the condition is TRUE.
+
+- **ORDER BY**: An optional clause for sorting the records in the result set.
+
+- **OFFSET**: An optional parameter that specifies from which row to start. The default is zero.
+
+- **LIMIT**: An optional parameter that limits the number of returned records in the result set.
+
+**Note**: MySQL evaluates the FROM clause first, and then the SELECT clause is evaluated.
+
+### Example:
+
+```sql
+-- Select all fields from the "Employees" table where age is greater than 30, order by salary in descending order, and limit to 10 records.
+SELECT *
+FROM Employees
+WHERE age > 30
+ORDER BY salary DESC
+LIMIT 10;
+```
+
+This example demonstrates the basic usage of the `SELECT` statement with a `WHERE` clause, `ORDER BY` for sorting, and `LIMIT` for restricting the number of returned records.
+
+
+
+### MySQL SELECT Statement Example
+
+Let's explore how the `SELECT` command works in MySQL with examples. Assume we have a table named `employee_detail` with the following data:
+
+1. To retrieve a single column from the table, execute the following query:
+
+```sql
+SELECT Name FROM employee_detail;
+```
+
+Output:
+```
++--------+
+|  Name  |
++--------+
+| Alice  |
+| Bob    |
+| Carol  |
+| David  |
+| Emma   |
++--------+
+```
+
+2. To query multiple columns from the table, use the following query:
+
+```sql
+SELECT Name, Email, City FROM employee_detail;
+```
+
+Output:
+```
++--------+----------------------+--------+
+|  Name  |        Email         |  City  |
++--------+----------------------+--------+
+| Alice  | alice@email.com      | NY     |
+| Bob    | bob@email.com        | LA     |
+| Carol  | carol@email.com      | SF     |
+| David  | david@email.com      | NY     |
+| Emma   | emma@email.com       | LA     |
++--------+----------------------+--------+
+```
+
+3. To fetch data from all columns using an asterisk (*), execute:
+
+```sql
+SELECT * FROM employee_detail;
+```
+
+Output:
+```
++--------+----------------------+--------+------------------+
+|  Name  |        Email         |  City  |  Working_Hours   |
++--------+----------------------+--------+------------------+
+| Alice  | alice@email.com      | NY     |        8         |
+| Bob    | bob@email.com        | LA     |        6         |
+| Carol  | carol@email.com      | SF     |        5         |
+| David  | david@email.com      | NY     |        7         |
+| Emma   | emma@email.com       | LA     |        4         |
++--------+----------------------+--------+------------------+
+```
+
+4. Using aggregate functions, HAVING clause, and GROUP BY, get the employee name, city, and total working hours for employees with more than 5 working hours:
+
+```sql
+SELECT Name, City, SUM(Working_Hours) AS "Total working hours"
+FROM employee_detail
+GROUP BY Name
+HAVING SUM(Working_Hours) > 5;
+```
+
+Output:
+```
++--------+--------+----------------------+
+|  Name  |  City  |  Total working hours  |
++--------+--------+----------------------+
+| Alice  |  NY    |           8            |
+| David  |  NY    |           7            |
++--------+--------+----------------------+
+```
+
+5. Using JOIN, retrieve matching records from the `customer` and `orders` tables:
+
+```sql
+SELECT cust_name, city, order_num, order_date
+FROM customer INNER JOIN orders
+ON customer.cust_id = orders.cust_id
+WHERE order_date < '2020-04-30'
+ORDER BY cust_name;
+```
+
+Output:
+```
++-----------+--------+-----------+------------+
+| cust_name |  city  | order_num | order_date |
++-----------+--------+-----------+------------+
+|   Alice   |   NY   |     101   | 2020-04-20 |
+|   Bob     |   LA   |     102   | 2020-04-25 |
+|   Carol   |   SF   |     103   | 2020-04-15 |
++-----------+--------+-----------+------------+
+```
