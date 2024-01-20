@@ -554,3 +554,59 @@ Output:
 |   Carol   |   SF   |     103   | 2020-04-15 |
 +-----------+--------+-----------+------------+
 ```
+
+
+### MySQL INSERT INTO SELECT Example
+
+Let's explore how the `INSERT INTO SELECT` statement works in MySQL with an example. First, we'll create a table named `person`:
+
+```sql
+CREATE TABLE person (
+  id int AUTO_INCREMENT PRIMARY KEY,
+  name varchar(45) NOT NULL,
+  email varchar(45) NOT NULL,
+  city varchar(25) NOT NULL
+);
+```
+
+Next, we'll insert some data into the `person` table:
+
+```sql
+INSERT INTO person (id, name, email, city)
+VALUES
+  (1, 'Stephen', 'stephen@javatpoint.com', 'Texas'),
+  (2, 'Joseph', 'Joseph@javatpoint.com', 'Alaska'),
+  (3, 'Peter', 'Peter@javatpoint.com', 'Texas'),
+  (4, 'Donald', 'donald@javatpoint.com', 'New York'),
+  (5, 'Kevin', 'kevin@javatpoint.com', 'Texas');
+```
+
+Now, suppose we want to insert the details of persons who belong to the 'Texas' city into another table named `person_info`. We'll first create the `person_info` table:
+
+```sql
+CREATE TABLE person_info (
+  person_id int AUTO_INCREMENT PRIMARY KEY,
+  person_name varchar(45) NOT NULL,
+  email varchar(45) NOT NULL,
+  city varchar(25) NOT NULL
+);
+```
+
+Now, we'll use the `INSERT INTO SELECT` statement to achieve this:
+
+```sql
+INSERT INTO person_info (person_name, email, city)
+SELECT name, email, city
+FROM person
+WHERE city = 'Texas';
+```
+
+If we want to insert all data from the `person` table into the `person_info` table without filtering, we can use the following statement:
+
+```sql
+INSERT INTO person_info
+SELECT * FROM person;
+```
+
+These examples illustrate how the `INSERT INTO SELECT` statement allows us to copy data from one table to another based on specified conditions or all data from one table to another without filtering.
+
