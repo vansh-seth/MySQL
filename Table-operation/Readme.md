@@ -471,3 +471,97 @@ ALTER TABLE Test
 
 Always consider these factors before performing column operations in MySQL.
 
+
+
+## MySQL Rename Column
+
+Sometimes, it becomes necessary to rename or change the column names in a MySQL table. MySQL provides two ways to achieve this: using the `CHANGE` statement and using the `RENAME` statement. Below, you'll find a guide on how to perform these operations.
+
+## Using the `CHANGE` Statement
+
+To rename a column using the `CHANGE` statement, use the following syntax:
+
+```sql
+ALTER TABLE table_name
+CHANGE COLUMN old_column_name new_column_name Data_Type;
+```
+
+- `table_name`: Name of the table.
+- `old_column_name`: Current name of the column.
+- `new_column_name`: New name for the column.
+- `Data_Type`: Data type of the column.
+
+### Example
+
+Suppose we have a table named `balance` with a column `account_num`:
+
+```sql
+ALTER TABLE balance
+CHANGE COLUMN account_num account_no VARCHAR(25);
+```
+
+## Using the `RENAME` Statement
+
+To rename a column using the `RENAME` statement, use the following syntax:
+
+```sql
+ALTER TABLE table_name
+RENAME COLUMN old_column_name TO new_column_name;
+```
+
+- `table_name`: Name of the table.
+- `old_column_name`: Current name of the column.
+- `new_column_name`: New name for the column.
+
+### Example
+
+Suppose we have a table named `customer` with a column `account`:
+
+```sql
+ALTER TABLE customer
+RENAME COLUMN account TO account_no;
+```
+
+## Renaming Multiple Columns
+
+MySQL also allows renaming multiple columns within a single statement. You can use either the `CHANGE` statement or the `RENAME` statement for this purpose:
+
+### Using `CHANGE` Statement
+
+```sql
+ALTER TABLE table_name
+CHANGE old_column_name1 new_column_name1 Data_Type,
+CHANGE old_column_name2 new_column_name2 Data_Type,
+...,
+CHANGE old_column_nameN new_column_nameN Data_Type;
+```
+
+### Using `RENAME` Statement
+
+```sql
+ALTER TABLE table_name
+RENAME COLUMN old_column_name1 TO new_column_name1,
+RENAME COLUMN old_column_name2 TO new_column_name2,
+...,
+RENAME COLUMN old_column_nameN TO new_column_nameN;
+```
+
+### Example
+
+Suppose we want to change column names `id` and `customer_name` from the `customer` table:
+
+```sql
+-- Using CHANGE statement
+ALTER TABLE customer
+CHANGE id cust_id int,
+CHANGE customer_name cust_name varchar(45);
+```
+
+```sql
+-- Using RENAME statement
+ALTER TABLE customer
+RENAME COLUMN cust_id TO id,
+RENAME COLUMN cust_name TO customer_name;
+```
+
+
