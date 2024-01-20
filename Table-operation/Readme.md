@@ -265,3 +265,122 @@ DESC your_table_name;
 
 The output will provide information about the columns in the specified table, including the column name, data type, whether it allows NULL values, key information, and more.
 
+## MySQL DROP TABLE Guide
+
+This guide provides instructions on how to use the `DROP TABLE` statement in MySQL to delete an existing table from the database.
+
+## Syntax
+
+The basic syntax for the `DROP TABLE` statement is as follows:
+
+```sql
+DROP TABLE table_name;
+```
+
+You can also include the optional `IF EXISTS` clause to avoid errors if the table does not exist:
+
+```sql
+DROP TABLE IF EXISTS table_name;
+```
+
+## Parameters
+
+- **TEMPORARY**: An optional parameter that specifies to delete temporary tables only.
+- **table_name**: Specifies the name of the table to be removed.
+- **IF EXISTS**: Optional. Used to remove the table only if it exists in the database.
+- **RESTRICT and CASCADE**: Both are optional parameters and do not have any impact on this statement. They are included in the syntax for future versions of MySQL.
+
+## Example
+
+Suppose we have a table named "orders" that we want to remove from the database. We can use the following command:
+
+```sql
+DROP TABLE orders;
+```
+
+This will permanently delete the table. You can also use the `IF EXISTS` clause to avoid errors if the table doesn't exist:
+
+```sql
+DROP TABLE IF EXISTS orders;
+```
+
+Make sure you have the necessary privileges to execute the `DROP TABLE` statement in MySQL.
+
+**Note:** Be cautious when using this statement, as it permanently removes the table and its data.
+
+## MySQL Temporary Tables Guide
+
+MySQL provides a feature called Temporary Tables that allows users to store temporary data for the duration of a session. These tables are useful for complex tasks and can be accessed only within the current session. This guide explains how to create, use, and drop temporary tables in MySQL.
+
+## Creating a Temporary Table
+
+To create a temporary table, you can use the `CREATE TEMPORARY TABLE` statement. The syntax is similar to creating a regular table:
+
+```sql
+CREATE TEMPORARY TABLE table_name (
+    column_1 datatype,
+    column_2 datatype,
+    ...
+);
+```
+
+If you want to create a temporary table with the same structure as an existing table, you can use:
+
+```sql
+CREATE TEMPORARY TABLE temporary_table_name SELECT * FROM existing_table LIMIT 0;
+```
+
+## Inserting Data into a Temporary Table
+
+After creating a temporary table, you can insert data into it using the `INSERT INTO` statement, similar to a regular table:
+
+```sql
+INSERT INTO temporary_table_name (column1, column2, ...)
+VALUES (value1, value2, ...),
+       (value1, value2, ...),
+       ...;
+```
+
+## Querying Data from a Temporary Table
+
+You can perform queries on temporary tables just like regular tables. For example:
+
+```sql
+SELECT * FROM temporary_table_name;
+```
+
+## Dropping a Temporary Table
+
+To drop a temporary table, use the `DROP TEMPORARY TABLE` statement:
+
+```sql
+DROP TEMPORARY TABLE table_name;
+```
+
+It's recommended to use the `TEMPORARY` keyword to avoid accidentally dropping a permanent table with the same name.
+
+## Example
+
+Here's an example of creating, inserting data, querying, and dropping a temporary table:
+
+```sql
+-- Create a temporary table
+CREATE TEMPORARY TABLE temp_students (
+    student_name VARCHAR(40) NOT NULL,
+    total_marks DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    total_subjects INT UNSIGNED NOT NULL DEFAULT 0
+);
+
+-- Insert data
+INSERT INTO temp_students (student_name, total_marks, total_subjects)
+VALUES ('Joseph', 150.75, 2),
+       ('Peter', 180.75, 2);
+
+-- Query data
+SELECT * FROM temp_students;
+
+-- Drop the temporary table
+DROP TEMPORARY TABLE temp_students;
+```
+
+Remember that temporary tables are automatically dropped when the session ends.
