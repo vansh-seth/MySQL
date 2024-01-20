@@ -564,4 +564,101 @@ RENAME COLUMN cust_id TO id,
 RENAME COLUMN cust_name TO customer_name;
 ```
 
+## MySQL View
+
+In MySQL, a view is a virtual table based on the result of a SELECT query. Views allow you to simplify complex queries and encapsulate logic by creating a virtual table that can be queried like a regular table. This guide will cover creating, updating, and dropping views in MySQL.
+
+## Creating a View
+
+To create a view in MySQL, you can use the `CREATE VIEW` statement followed by a `SELECT` query. The basic syntax is as follows:
+
+```sql
+CREATE [OR REPLACE] VIEW view_name AS
+SELECT columns
+FROM tables
+[WHERE conditions];
+```
+
+- **`OR REPLACE` (optional):** It is used when a view already exists. If specified, it replaces the existing view. If not specified and the view exists, an error is returned.
+
+- **`view_name`:** The name of the view you want to create.
+
+- **`columns`:** The columns you want to include in the view.
+
+- **`tables`:** The source tables from which you are selecting data for the view.
+
+- **`WHERE conditions` (optional):** Conditions to filter data in the view.
+
+### Example:
+
+Let's create a view named `trainer` based on the `courses` table:
+
+```sql
+CREATE VIEW trainer AS
+SELECT course_name, trainer
+FROM courses;
+```
+
+To view the created view, you can use:
+
+```sql
+SELECT * FROM trainer;
+```
+
+## Updating a View
+
+To update the definition of an existing view, you can use the `ALTER VIEW` statement. This allows you to modify the columns, source tables, or conditions of the view.
+
+```sql
+ALTER VIEW view_name AS
+SELECT columns
+FROM tables
+WHERE conditions;
+```
+
+### Example:
+
+Let's update the `trainer` view by adding a new column:
+
+```sql
+ALTER VIEW trainer AS
+SELECT id, course_name, trainer
+FROM courses;
+```
+
+## Dropping a View
+
+To delete an existing view, you can use the `DROP VIEW` statement.
+
+```sql
+DROP VIEW [IF EXISTS] view_name;
+```
+
+- **`IF EXISTS` (optional):** If specified, it prevents an error from occurring if the view does not exist.
+
+### Example:
+
+To drop the `trainer` view:
+
+```sql
+DROP VIEW trainer;
+```
+
+## Creating a View with JOIN Clause
+
+You can create more complex views involving multiple tables and using a `JOIN` clause. In this example, we'll create a view named `Trainer` by joining the `courses` and `contact` tables:
+
+```sql
+CREATE VIEW Trainer AS
+SELECT c.course_name, c.trainer, t.email
+FROM courses c
+JOIN contact t ON c.id = t.id;
+```
+
+Now you can query the `Trainer` view just like any other table:
+
+```sql
+SELECT * FROM Trainer;
+```
+
 
