@@ -237,3 +237,31 @@ In MySQL, you can rename a table using either the `RENAME TABLE` statement or th
 
 Both methods allow you to change the name of a table in MySQL. Choose the one that suits your needs and the specific context in which you are working.
 
+## MySQL Table Description Guide
+
+## Steps
+
+### 1. Switch to a Specific Database
+
+Choose the database for which you want to describe the table:
+
+```sql
+USE your_database_name;
+```
+
+### 2. Execute DESCRIBE Statement
+
+Execute the `DESCRIBE` statement for a specific table. Replace `your_table_name` with the actual name of the table you want to describe:
+
+```sql
+DESCRIBE your_table_name;
+```
+
+Alternatively, you can use the shorter `DESC` command:
+
+```sql
+DESC your_table_name;
+```
+
+The output will provide information about the columns in the specified table, including the column name, data type, whether it allows NULL values, key information, and more.
+
