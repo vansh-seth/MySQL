@@ -216,3 +216,40 @@ CREATE TABLE new_table_name (
    ```
 
 These constraints play a crucial role in maintaining data integrity and ensuring that the data in a MySQL database follows predefined rules.
+
+
+### MySQL INSERT Statement with Date Example
+
+Let's extend the examples to include inserting dates into a MySQL table. Assume we have a new table named `Events` with columns `EventID`, `EventName`, and `EventDate`. Here's how you can use the `INSERT INTO` statement to add records with date values:
+
+```sql
+-- Creating the Events table
+CREATE TABLE Events (
+    EventID INT NOT NULL AUTO_INCREMENT,
+    EventName VARCHAR(50) NOT NULL,
+    EventDate DATE,
+    PRIMARY KEY (EventID)
+);
+
+-- Inserting single record with date
+INSERT INTO Events (EventName, EventDate)
+VALUES ('Meeting', '2022-01-20');
+
+-- Inserting multiple records with dates
+INSERT INTO Events (EventName, EventDate)
+VALUES
+    ('Conference', '2022-02-15'),
+    ('Workshop', '2022-03-10'),
+    ('Seminar', '2022-04-05');
+
+-- Checking the inserted records
+SELECT * FROM Events;
+```
+
+In this example:
+- We created the `Events` table with three columns: `EventID`, `EventName`, and `EventDate`.
+- We inserted single and multiple records into the `Events` table using the `INSERT INTO` statement.
+- The `EventDate` column is of type `DATE`, and the date values are in the format 'YYYY-MM-DD'.
+- The `SELECT * FROM Events;` statement is used to display the inserted records.
+
+Remember to adjust the column names and data types according to your table structure. The examples provided assume a table structure with an auto-incremented ID, an event name, and a date.
