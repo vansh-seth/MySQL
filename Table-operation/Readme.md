@@ -384,3 +384,90 @@ DROP TEMPORARY TABLE temp_students;
 ```
 
 Remember that temporary tables are automatically dropped when the session ends.
+
+
+
+## MySQL Column Operations Guide
+
+## Adding a Column
+
+To add a new column to an existing table in MySQL, you can use the `ALTER TABLE ADD COLUMN` statement. Here's the basic syntax:
+
+```sql
+ALTER TABLE table_name
+    ADD COLUMN column_name column_definition [FIRST | AFTER existing_column];
+```
+
+- `table_name`: Name of the table you want to modify.
+- `column_name`: Name of the new column.
+- `column_definition`: Data type and definition of the new column.
+- `FIRST` | `AFTER existing_column`: Optional. Specifies where in the table to create the new column.
+
+### Example
+
+```sql
+-- Add a new column 'City' to the 'Test' table
+ALTER TABLE Test
+    ADD COLUMN City VARCHAR(30) NOT NULL;
+
+-- Add 'Phone_number' after the 'Name' column
+ALTER TABLE Test
+    ADD COLUMN Phone_number VARCHAR(20) NOT NULL AFTER Name;
+```
+
+## Renaming a Column
+
+To rename a column in MySQL, use the `ALTER TABLE CHANGE COLUMN` statement:
+
+```sql
+ALTER TABLE table_name
+    CHANGE COLUMN old_column_name new_column_name column_definition [FIRST | AFTER existing_column];
+```
+
+- `table_name`: Name of the table.
+- `old_column_name`: The current name of the column.
+- `new_column_name`: The new name for the column.
+- `column_definition`: Definition of the column (including data type).
+- `FIRST` | `AFTER existing_column`: Optional. Specifies the position of the column.
+
+### Example
+
+```sql
+-- Rename 'Phone_number' to 'Mobile_number' in the 'Test' table
+ALTER TABLE Test
+    CHANGE COLUMN Phone_number Mobile_number VARCHAR(20) NOT NULL;
+```
+
+## Deleting a Column
+
+To remove a column from a MySQL table, use the `ALTER TABLE DROP COLUMN` statement:
+
+```sql
+ALTER TABLE table_name
+    DROP COLUMN column_name;
+```
+
+- `table_name`: Name of the table.
+- `column_name`: Name of the column to be deleted.
+
+### Example
+
+```sql
+-- Remove 'Branch' column from the 'Test' table
+ALTER TABLE Test
+    DROP COLUMN Branch;
+
+-- Remove multiple columns 'Mobile_number' and 'Email'
+ALTER TABLE Test
+    DROP COLUMN Mobile_number,
+    DROP COLUMN Email;
+```
+
+## Important Considerations
+
+- Deleting a column affects associated objects like triggers, stored procedures, and views.
+- Changes in a table's schema may require updates in dependent applications' code.
+- Deleting columns from large tables can impact database performance during the deletion process.
+
+Always consider these factors before performing column operations in MySQL.
+
