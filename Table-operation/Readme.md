@@ -660,5 +660,3 @@ Now you can query the `Trainer` view just like any other table:
 ```sql
 SELECT * FROM Trainer;
 ```
-
-
