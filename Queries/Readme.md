@@ -253,3 +253,138 @@ In this example:
 - The `SELECT * FROM Events;` statement is used to display the inserted records.
 
 Remember to adjust the column names and data types according to your table structure. The examples provided assume a table structure with an auto-incremented ID, an event name, and a date.
+
+
+
+## MySQL UPDATE Query
+MySQL UPDATE query is a DML statement used to modify the data of the MySQL table within the database. In a real-life scenario, records are changed over some time. So, we need to make changes in the values of the tables also. To do so, it is required to use the UPDATE query.
+
+- The UPDATE statement is used with the SET and WHERE clauses. The SET clause is used to change the values of the specified column. We can update single or multiple columns at a time.
+
+- Syntax:
+Following is a generic syntax of UPDATE command to modify data into the MySQL table:
+```sql
+UPDATE table_name     
+SET column_name1 = new-value1,   
+        column_name2=new-value2, ...    
+[WHERE Clause]
+```
+
+
+### MySQL DELETE Statement
+
+The `DELETE` statement in MySQL is used to remove records from a table based on specified conditions. It allows you to delete one or more rows from a table, and you can use the `WHERE` clause to specify the conditions for deletion.
+
+**Syntax:**
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
+
+- **table_name:** The name of the table from which you want to delete records.
+- **condition:** The condition that specifies which rows to delete. If omitted, all rows from the table will be deleted.
+
+#### Examples:
+
+1. **Delete a Specific Record:**
+   
+   To delete a record with a specific condition (e.g., employee with `emp_id` 107):
+   ```sql
+   DELETE FROM Employees
+   WHERE emp_id = 107;
+   ```
+
+2. **Delete All Records:**
+
+   To delete all records from a table:
+   ```sql
+   DELETE FROM Employees;
+   ```
+   *Note: Be cautious when using this, as it will delete all rows in the table.*
+
+3. **Delete with `LIMIT` Clause:**
+
+   To delete a limited number of rows, you can use the `LIMIT` clause. For example, to delete the first 3 employees ordered by name:
+   ```sql
+   DELETE FROM Employees
+   ORDER BY name
+   LIMIT 3;
+   ```
+
+4. **Delete Using `JOIN` Clause:**
+
+   If you want to delete records from multiple tables simultaneously, you can use the `JOIN` clause. For instance, deleting records from Employees and Payment tables where `emp_id` is 102:
+   ```sql
+   DELETE Employees, Payment
+   FROM Employees
+   INNER JOIN Payment ON Employees.emp_id = Payment.emp_id
+   WHERE Employees.emp_id = 102;
+   ```
+
+*Always ensure you have a backup before performing delete operations, especially when deleting a large number of records or when conditions are critical.*
+
+
+### MySQL DELETE Statement Examples
+
+In these examples, we'll use the "Employees" and "Payment" tables to demonstrate various use cases of the `DELETE` statement. Let's assume the tables contain the following data:
+
+#### Employees Table:
+| emp_id | name    | age | salary   |
+|--------|---------|-----|----------|
+| 101    | Alice   | 28  | 60000    |
+| 102    | Bob     | 32  | 75000    |
+| 103    | Charlie | 45  | 90000    |
+| 104    | David   | 28  | 55000    |
+| 105    | Emma    | 35  | 80000    |
+| 106    | Frank   | 40  | 95000    |
+| 107    | Grace   | 22  | 50000    |
+
+#### Payment Table:
+| emp_id | payment_date | amount   |
+|--------|--------------|----------|
+| 101    | 2022-01-01   | 5000     |
+| 102    | 2022-01-01   | 6000     |
+| 103    | 2022-01-01   | 7000     |
+| 104    | 2022-01-01   | 4500     |
+| 105    | 2022-01-01   | 5500     |
+| 106    | 2022-01-01   | 8000     |
+| 107    | 2022-01-01   | 4000     |
+
+#### Example 1: Delete a Specific Record
+
+To delete an employee with `emp_id` 107:
+```sql
+DELETE FROM Employees
+WHERE emp_id = 107;
+```
+
+*After executing the query, verify the table using `SELECT * FROM Employees;`*
+
+#### Example 2: Delete All Records from a Table
+
+To delete all records from the "Employees" table:
+```sql
+DELETE FROM Employees;
+```
+*Be cautious when using this, as it will delete all rows in the table.*
+
+#### Example 3: Delete with `LIMIT` Clause
+
+To delete the first three employees ordered by name:
+```sql
+DELETE FROM Employees
+ORDER BY name
+LIMIT 3;
+```
+
+#### Example 4: Delete Using `JOIN` Clause
+
+To delete records from Employees and Payment tables where `emp_id` is 102:
+```sql
+DELETE Employees, Payment
+FROM Employees
+INNER JOIN Payment ON Employees.emp_id = Payment.emp_id
+WHERE Employees.emp_id = 102;
+```
+
+*Always ensure you have a backup before performing delete operations, especially when deleting a large number of records or when conditions are critical.*
