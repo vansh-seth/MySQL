@@ -528,4 +528,88 @@ WHERE officer_name IS NOT NULL;
 
 **Note:** Here, you are getting the complete "officers" table as a result because every value is NOT NULL in the table.
 
+## MySQL BETWEEN Condition
 
+The MySQL BETWEEN condition specifies how to retrieve values from an expression within a specific range. It is used with SELECT, INSERT, UPDATE, and DELETE statements.
+
+## Syntax:
+
+```sql
+expression BETWEEN value1 AND value2;
+```
+
+### Parameters:
+
+- `expression`: It specifies a column.
+- `value1` and `value2`: These values define an inclusive range that expression is compared to.
+
+## MySQL BETWEEN Examples
+
+### Using MySQL BETWEEN condition with numeric value
+
+Consider a table "officers" having the following data.
+
+#### Table: officers
+
+| officer_id | officer_name | address   |
+|------------|--------------|-----------|
+| 1          | Ajeet        | Mau       |
+| 2          | Vimal        | Lucknow   |
+| 3          | Deepika      | Mau       |
+| 4          | Bob Smith    | Lucknow   |
+| 5          | Alice Brown  | Mau       |
+
+Execute the following query:
+
+#### Query:
+
+```sql
+SELECT *  
+FROM officers  
+WHERE officer_id BETWEEN 1 AND 3;
+```
+
+#### Output:
+
+| officer_id | officer_name | address   |
+|------------|--------------|-----------|
+| 1          | Ajeet        | Mau       |
+| 2          | Vimal        | Lucknow   |
+| 3          | Deepika      | Mau       |
+
+Note: In the above example, you can see that only three rows are returned between 1 and 3.
+
+### Using MySQL BETWEEN condition with date
+
+MySQL BETWEEN condition also facilitates you to retrieve records according to date.
+
+Consider a table "employees" having the following data.
+
+#### Table: employees
+
+| emp_id | emp_name | working_date |
+|--------|----------|--------------|
+| 1      | John     | 2015-01-24   |
+| 2      | Jane     | 2015-01-25   |
+| 3      | Bob      | 2015-01-26   |
+| 4      | Alice    | 2015-01-27   |
+| 5      | Charlie  | 2015-01-28   |
+
+Execute the following query:
+
+#### Query:
+
+```sql
+SELECT *  
+FROM employees  
+WHERE working_date BETWEEN CAST('2015-01-24' AS DATE) AND CAST('2015-01-25' AS DATE);
+```
+
+#### Output:
+
+| emp_id | emp_name | working_date |
+|--------|----------|--------------|
+| 1      | John     | 2015-01-24   |
+| 2      | Jane     | 2015-01-25   |
+
+**Note:** In the above example, you can see that only data between specific dates are shown.
