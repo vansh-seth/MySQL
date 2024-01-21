@@ -542,3 +542,61 @@ GROUP BY emp_name;
 | Bob      | 45.0                  |
 | Alice    | 35.0                  |
 | Charlie  | 40.0                  |
+
+
+## MySQL HAVING Clause
+
+MySQL HAVING Clause is used with the GROUP BY clause. It always returns the rows where the condition is TRUE.
+
+## Syntax:
+
+```sql
+SELECT expression1, expression2, ... expression_n,   
+       aggregate_function(expression)  
+FROM tables  
+[WHERE conditions]  
+GROUP BY expression1, expression2, ... expression_n  
+HAVING condition;
+```
+
+### Parameters:
+
+- `aggregate_function`: Specifies any one of the aggregate functions such as SUM, COUNT, MIN, MAX, or AVG.
+- `expression1, expression2, ... expression_n`: Specifies the expressions that are not encapsulated within an aggregate function and must be included in the GROUP BY clause.
+- `WHERE conditions`: It is optional. It specifies the conditions for the records to be selected.
+- `HAVING condition`: It is used to restrict the groups of returned rows. It shows only those groups in the result set whose conditions are TRUE.
+
+### Example:
+
+Consider a table "employees" table having the following data.
+
+#### Table:
+
+| emp_name   | working_hours |
+|------------|---------------|
+| John       | 4             |
+| Jane       | 8             |
+| Bob        | 7             |
+| Alice      | 5             |
+| Charlie    | 6             |
+
+Here, we use the SUM function with the HAVING Clause to return the emp_name and sum of their working hours.
+
+#### Query:
+
+```sql
+SELECT emp_name, SUM(working_hours) AS "Total working hours"  
+FROM employees  
+GROUP BY emp_name  
+HAVING SUM(working_hours) > 5;
+```
+
+#### Output:
+
+| emp_name | Total working hours |
+|----------|----------------------|
+| Jane     | 8                    |
+| Bob      | 7                    |
+| Charlie  | 6                    |
+
+Simply, it can also be used with COUNT, MIN, MAX, and AVG functions.
