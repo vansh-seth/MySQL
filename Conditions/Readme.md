@@ -102,3 +102,52 @@ OR cus_id > 100;
 
 **Note:** In the above example, you can see that the second condition "cus_id" is incorrect, but the query is displaying the correct result because of the OR condition.
 
+## MySQL AND & OR Conditions
+
+In MySQL, you can use AND & OR conditions together with the SELECT, INSERT, UPDATE, and DELETE statements. When combining these conditions, you must be aware of where to use round brackets so that the database knows the order to evaluate each condition.
+
+## Syntax:
+
+```sql
+WHERE condition1  
+AND condition2  
+...  
+OR condition_n;
+```
+
+### Parameter:
+
+- `condition1, condition2, ... condition_n`: Specifies the conditions that are evaluated to determine if the records will be selected.
+
+## MySQL AND OR Example
+
+Consider a table "students", having the following data.
+
+#### Table: students
+
+| student_id | student_name | course_name |
+|------------|--------------|-------------|
+| 1          | Aryan        | Java        |
+| 2          | Bob          | Python      |
+| 3          | Charlie      | Java        |
+| 4          | David        | C++         |
+| 5          | Emily        | Python      |
+
+Execute the following query:
+
+#### Query:
+
+```sql
+SELECT *  
+FROM students  
+WHERE (course_name = 'Java' AND student_name = 'Aryan')  
+OR (student_id < 2);
+```
+
+#### Output:
+
+| student_id | student_name | course_name |
+|------------|--------------|-------------|
+| 1          | Aryan        | Java        |
+
+
