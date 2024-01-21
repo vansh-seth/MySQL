@@ -275,4 +275,270 @@ ON officers.officer_id = students.student_id;
 | 4          | Alice Brown  |
 | 5          | Charlie Lee  |
 
+## MySQL ORDER BY Clause
 
+The MYSQL ORDER BY Clause is used to sort the records in ascending or descending order.
+
+## Syntax:
+
+```sql
+SELECT expressions  
+FROM tables  
+[WHERE conditions]  
+ORDER BY expression [ ASC | DESC ];
+```
+
+### Parameters:
+
+- `expressions`: It specifies the columns that you want to retrieve.
+- `tables`: It specifies the tables from where you want to retrieve records. There must be at least one table listed in the FROM clause.
+- `WHERE conditions`: It is optional. It specifies conditions that must be fulfilled for the records to be selected.
+- `ASC`: It is optional. It sorts the result set in ascending order by expression (default if no modifier is provided).
+- `DESC`: It is also optional. It sorts the result set in descending order by expression.
+
+**Note:**
+
+You can use MySQL ORDER BY clause in a SELECT statement, SELECT LIMIT statement, and DELETE LIMIT statement.
+
+## MySQL ORDER BY: Without Using ASC/DESC Attribute
+
+If you use MySQL ORDER BY clause without specifying the ASC and DESC modifier then by default you will get the result in ascending order.
+
+### Example:
+
+#### Query:
+
+```sql
+SELECT *  
+FROM officers  
+WHERE address = 'Lucknow'  
+ORDER BY officer_name;
+```
+
+#### Output:
+
+| officer_id | officer_name | address |
+|------------|--------------|---------|
+| 4          | Alice Brown  | Lucknow |
+| 2          | Jane Doe     | Lucknow |
+
+## MySQL ORDER BY: With ASC Attribute
+
+Let's take an example to retrieve the data in ascending order.
+
+### Example:
+
+#### Query:
+
+```sql
+SELECT *  
+FROM officers  
+WHERE address = 'Lucknow'  
+ORDER BY officer_name ASC;
+```
+
+#### Output:
+
+| officer_id | officer_name | address |
+|------------|--------------|---------|
+| 4          | Alice Brown  | Lucknow |
+| 2          | Jane Doe     | Lucknow |
+
+## MySQL ORDER BY: With DESC Attribute
+
+### Example:
+
+#### Query:
+
+```sql
+SELECT *  
+FROM officers  
+WHERE address = 'Lucknow'  
+ORDER BY officer_name DESC;
+```
+
+#### Output:
+
+| officer_id | officer_name | address |
+|------------|--------------|---------|
+| 2          | Jane Doe     | Lucknow |
+| 4          | Alice Brown  | Lucknow |
+
+## MySQL ORDER BY: Using Both ASC and DESC Attributes
+
+Execute the following query:
+
+### Example:
+
+#### Query:
+
+```sql
+SELECT officer_name, address  
+FROM officers  
+WHERE officer_id < 5  
+ORDER BY officer_name DESC, address ASC;
+```
+
+#### Output:
+
+| officer_name | address |
+|--------------|---------|
+| Bob Smith    | Mau     |
+| Alice Brown  | Lucknow |
+| Jane Doe     | Lucknow |
+
+## MySQL GROUP BY Clause
+
+The MYSQL GROUP BY Clause is used to collect data from multiple records and group the result by one or more columns. It is generally used in a SELECT statement.
+
+You can also use some aggregate functions like COUNT, SUM, MIN, MAX, AVG, etc. on the grouped column.
+
+## Syntax:
+
+```sql
+SELECT expression1, expression2, ... expression_n,   
+       aggregate_function(expression)  
+FROM tables  
+[WHERE conditions]  
+GROUP BY expression1, expression2, ... expression_n;
+```
+
+### Parameters:
+
+- `expression1, expression2, ... expression_n`: Specifies the expressions that are not encapsulated within an aggregate function and must be included in the GROUP BY clause.
+- `aggregate_function`: Specifies a function such as SUM, COUNT, MIN, MAX, or AVG, etc.
+- `tables`: Specifies the tables from where you want to retrieve the records. There must be at least one table listed in the FROM clause.
+- `WHERE conditions`: It is optional. It specifies the conditions that must be fulfilled for the records to be selected.
+
+### Examples:
+
+(i) **MySQL GROUP BY Clause with COUNT function**
+
+Consider a table named "officers" table, having the following records.
+
+#### Table:
+
+| officer_id | officer_name | address |
+|------------|--------------|---------|
+| 1          | John Doe     | Mau     |
+| 2          | Jane Doe     | Lucknow |
+| 3          | Bob Smith    | Mau     |
+| 4          | Alice Brown  | Lucknow |
+| 5          | Charlie Lee  | Mau     |
+
+Now, let's count the repetitive number of cities in the column address.
+
+#### Query:
+
+```sql
+SELECT address, COUNT(*)  
+FROM officers   
+GROUP BY address;
+```
+
+#### Output:
+
+| address | COUNT(*) |
+|---------|----------|
+| Mau     | 3        |
+| Lucknow | 2        |
+
+(ii) **MySQL GROUP BY Clause with SUM function**
+
+Let's take a table "employees" table, having the following data.
+
+#### Table:
+
+| emp_name   | working_hours |
+|------------|---------------|
+| John       | 40            |
+| Jane       | 30            |
+| Bob        | 45            |
+| Alice      | 35            |
+| Charlie    | 40            |
+
+Now, the following query will GROUP BY the example using the SUM function and return the emp_name and total working hours of each employee.
+
+#### Query:
+
+```sql
+SELECT emp_name, SUM(working_hours) AS "Total working hours"  
+FROM employees  
+GROUP BY emp_name;
+```
+
+#### Output:
+
+| emp_name | Total working hours |
+|----------|----------------------|
+| John     | 40                   |
+| Jane     | 30                   |
+| Bob      | 45                   |
+| Alice    | 35                   |
+| Charlie  | 40                   |
+
+(iii) **MySQL GROUP BY Clause with MIN function**
+
+The following example specifies the minimum working hours of the employees form the table "employees".
+
+#### Query:
+
+```sql
+SELECT emp_name, MIN(working_hours) AS "Minimum working hour"  
+FROM employees  
+GROUP BY emp_name;
+```
+
+#### Output:
+
+| emp_name | Minimum working hour |
+|----------|-----------------------|
+| John     | 40                    |
+| Jane     | 30                    |
+| Bob      | 45                    |
+| Alice    | 35                    |
+| Charlie  | 40                    |
+
+(iv) **MySQL GROUP BY Clause with MAX function**
+
+The following example specifies the maximum working hours of the employees form the table "employees".
+
+#### Query:
+
+```sql
+SELECT emp_name, MAX (working_hours) AS "Maximum working hour"  
+FROM employees  
+GROUP BY emp_name;
+```
+
+#### Output:
+
+| emp_name | Maximum working hour |
+|----------|-----------------------|
+| John     | 40                    |
+| Jane     | 30                    |
+| Bob      | 45                    |
+| Alice    | 35                    |
+| Charlie  | 40                    |
+
+(v) **MySQL GROUP BY Clause with AVG function**
+
+The following example specifies the average working hours of the employees form the table "employees".
+
+#### Query:
+
+```sql
+SELECT emp_name, AVG(working_hours) AS "Average working hour"  
+FROM employees  
+GROUP BY emp_name;
+```
+
+#### Output:
+
+| emp_name | Average working hour |
+|----------|-----------------------|
+| John     | 40.0                  |
+| Jane     | 30.0                  |
+| Bob      | 45.0                  |
+| Alice    | 35.0                  |
+| Charlie  | 40.0                  |
