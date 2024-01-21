@@ -182,3 +182,97 @@ FROM officers;
 | Charlie Lee  | Delhi   |
 
 
+## MySQL FROM Clause
+
+The MySQL FROM Clause is used to select records from a table or retrieve records from multiple tables using the JOIN condition.
+
+## Syntax:
+
+```sql
+FROM table1  
+[ { INNER JOIN | LEFT [OUTER] JOIN| RIGHT [OUTER] JOIN } table2  
+ON table1.column1 = table2.column1 ]
+```
+
+### Parameters:
+
+- `table1` and `table2`: Specify tables used in the MySQL statement. The two tables are joined based on `table1.column1 = table2.column1`.
+
+**Note:**
+
+- If you are using the FROM clause in a MySQL statement, then at least one table must have been selected.
+- If you are using two or more tables in the MySQL FROM clause, these tables are generally joined using INNER or OUTER joins.
+
+## MySQL FROM Clause: Retrieve Data from One Table
+
+The following query specifies how to retrieve data from a single table.
+
+### Example:
+
+#### Query:
+
+```sql
+SELECT *  
+FROM officers  
+WHERE officer_id <= 3;
+```
+
+#### Output:
+
+| officer_id | officer_name | address |
+|------------|--------------|---------|
+| 1          | John Doe     | Mau     |
+| 2          | Jane Doe     | Lucknow |
+| 3          | Bob Smith    | Mau     |
+
+## MySQL FROM Clause: Retrieve Data from Two Tables with INNER JOIN
+
+Let's take an example to retrieve data from two tables using INNER JOIN.
+
+Here, we have two tables "officers" and "students".
+
+### Example:
+
+#### Query:
+
+```sql
+SELECT officers.officer_id, students.student_name  
+FROM students  
+INNER JOIN officers  
+ON students.student_id = officers.officer_id;
+```
+
+#### Output:
+
+| officer_id | student_name |
+|------------|--------------|
+| 1          | John Doe     |
+| 2          | Jane Doe     |
+| 3          | Bob Smith    |
+
+## MySQL FROM Clause: Retrieve Data from Two Tables Using OUTER JOIN
+
+Execute the following query to retrieve data from two tables using LEFT OUTER JOIN.
+
+### Example:
+
+#### Query:
+
+```sql
+SELECT officers.officer_id, students.student_name  
+FROM officers  
+LEFT OUTER JOIN students  
+ON officers.officer_id = students.student_id;
+```
+
+#### Output:
+
+| officer_id | student_name |
+|------------|--------------|
+| 1          | John Doe     |
+| 2          | Jane Doe     |
+| 3          | Bob Smith    |
+| 4          | Alice Brown  |
+| 5          | Charlie Lee  |
+
+
