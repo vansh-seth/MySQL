@@ -308,3 +308,153 @@ This will give the following output:
 | 1      | John Doe      | 101          | Alice         | 50000  |
 | 2      | Jane Smith    | 102          | Bob           | 70000  |
 | 3      | Mike Johnson  | 103          | Charlie       | 60000  |
+
+
+## MySQL LEFT JOIN
+
+MySQL LEFT JOIN queries records from multiple tables, returning all from the left table and matched from the right table. If no match, it returns Null.
+
+**Syntax:**
+```sql
+SELECT columns
+FROM table1
+LEFT JOIN table2 ON Join_Condition;
+```
+
+**Example:**
+
+*Tables: "customers" and "orders"*
+
+```sql
+SELECT customer_id, cust_name, price, date
+FROM customers
+LEFT JOIN orders ON customers.customer_id = orders.customer_id;
+```
+
+| customer_id | cust_name | price | date       |
+| ----------- | --------- | ----- | ---------- |
+| 1           | John      | 2000  | 2022-01-01 |
+| 2           | Jane      | 3000  | 2022-01-02 |
+| 3           | Mike      | NULL  | NULL       |
+
+**LEFT JOIN with USING Clause:**
+```sql
+SELECT customer_id, cust_name, occupation, price, date
+FROM customers
+LEFT JOIN orders USING(customer_id);
+```
+
+**LEFT JOIN with GROUP BY Clause:**
+```sql
+SELECT customer_id, cust_name, qualification, price, date
+FROM customers
+LEFT JOIN orders ON customers.customer_id = orders.customer_id
+GROUP BY price;
+```
+
+**LEFT JOIN with WHERE Clause:**
+```sql
+SELECT customer_id, cust_name, occupation, price, date
+FROM customers
+LEFT JOIN orders
+USING(customer_id) WHERE price > 2500;
+```
+
+**LEFT JOIN Multiple Tables:**
+```sql
+SELECT customer_id, cust_name, order_id, price, cellphone
+FROM customers
+LEFT JOIN contacts ON customer_id = contact_id
+LEFT JOIN orders ON customers.customer_id = orders.customer_id ORDER BY income;
+```
+
+**LEFT JOIN to Get Unmatched Records:**
+```sql
+SELECT customer_id, cust_name, cellphone, homephone
+FROM customers
+LEFT JOIN contacts ON customer_id = contact_id
+WHERE cellphone IS NULL;
+```
+
+**Difference between WHERE and ON clause:**
+```sql
+-- WHERE Clause
+SELECT cust_name, occupation, order_id, price, date
+FROM customers
+LEFT JOIN orders
+USING(customer_id) WHERE price = 2500;
+
+-- ON Clause
+SELECT cust_name, occupation
+```
+
+## MySQL RIGHT JOIN
+
+MySQL RIGHT JOIN joins two or more tables and returns all rows from the right-hand table and only matching rows from the other table. Unmatched records from the left side return Null. Also known as Right Outer Join.
+
+**Syntax:**
+```sql
+SELECT column_list
+FROM Table1
+RIGHT [OUTER] JOIN Table2
+ON join_condition;
+```
+
+**Examples:**
+
+*Tables: "customers" and "orders"*
+
+```sql
+SELECT customers.customer_id, cust_name, price, date
+FROM customers
+RIGHT JOIN orders ON customers.customer_id = orders.customer_id
+ORDER BY customer_id;
+```
+
+| customer_id | cust_name | price | date       |
+| ----------- | --------- | ----- | ---------- |
+| 1           | John      | 2000  | 2022-01-01 |
+| 2           | Jane      | 3000  | 2022-01-02 |
+| NULL        | NULL      | 4000  | 2022-01-03 |
+
+**RIGHT JOIN with WHERE Clause:**
+```sql
+SELECT *
+FROM customers
+RIGHT JOIN orders USING(customer_id)
+WHERE price > 2500 AND price < 5000;
+```
+
+| customer_id | cust_name | price | date       |
+| ----------- | --------- | ----- | ---------- |
+| NULL        | NULL      | 4000  | 2022-01-03 |
+
+**RIGHT JOIN Multiple Tables:**
+```sql
+SELECT customers.customer_id, cust_name, order_id, price, cellphone
+FROM customers
+RIGHT JOIN contacts ON customer_id = contact_id
+RIGHT JOIN orders ON customers.customer_id = orders.customer_id
+ORDER BY order_id;
+```
+
+| customer_id | cust_name | order_id | price | cellphone   |
+| ----------- | --------- | -------- | ----- | ------------ |
+| 1           | John      | 101      | 2000  | 123-456-7890 |
+| NULL        | NULL      | 102      | 3000  | 987-654-3210 |
+
+**RIGHT JOIN to Get Unmatched Records:**
+```sql
+SELECT customer_id, cust_name, cellphone, homephone
+FROM customers
+RIGHT JOIN contacts ON customer_id = contact_id
+WHERE cellphone IS NULL
+ORDER BY cellphone;
+```
+
+| customer_id | cust_name | cellphone | homephone   |
+| ----------- | --------- | ---------- | ----------- |
+| NULL        | NULL      | NULL       | 555-123-4567 |
+
+
+
