@@ -457,4 +457,67 @@ ORDER BY cellphone;
 | NULL        | NULL      | NULL       | 555-123-4567 |
 
 
+## MySQL CROSS JOIN
 
+MySQL CROSS JOIN combines all possibilities of two or more tables, providing the Cartesian product of all associated tables. No join condition is used, and it returns every row from all contributing tables.
+
+**Syntax:**
+```sql
+SELECT column-lists
+FROM table1
+CROSS JOIN table2;
+```
+
+**Example:**
+
+*Tables: "customers" and "contacts"*
+
+```sql
+SELECT *
+FROM customers
+CROSS JOIN contacts;
+```
+
+| customer_id | cust_name | income | contact_id | cellphone   |
+| ----------- | --------- | ------ | ---------- | ------------ |
+| 1           | John      | 50000  | 101        | 123-456-7890 |
+| 1           | John      | 50000  | 102        | 987-654-3210 |
+| 2           | Jane      | 60000  | 101        | 123-456-7890 |
+| 2           | Jane      | 60000  | 102        | 987-654-3210 |
+| ...         | ...       | ...    | ...        | ...          |
+
+*Note: To avoid repeated columns, specify individual column names instead of using SELECT *.*
+
+**Ambiguous Columns:**
+```sql
+-- Throws an error
+SELECT customer_id, cust_name, income, order_id, price
+FROM customer
+CROSS JOIN orders;
+```
+
+*Resolving Ambiguous Columns:*
+```sql
+SELECT customer.customer_id, customer.cust_name, customer.income, orders.order_id, orders.price
+FROM customer
+CROSS JOIN orders;
+```
+
+**CROSS JOIN with WHERE Clause:**
+```sql
+SELECT customers.customer_id, customers.cust_name, customers.income, orders.order_id, orders.price
+FROM customers
+CROSS JOIN orders
+USING(customer_id) WHERE price > 1500 AND price < 5000;
+```
+
+**CROSS JOIN Multiple Tables:**
+```sql
+SELECT *
+FROM customer
+LEFT JOIN(orders CROSS JOIN contacts)
+ON customer.customer_id = contact_id
+ORDER BY income;
+```
+
+*Note: Replace data and column names as needed.*
