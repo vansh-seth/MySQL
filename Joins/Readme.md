@@ -605,3 +605,69 @@ DELETE customers FROM customers
 LEFT JOIN contacts ON customers.customer_id = contacts.contact_id
 WHERE cellphone IS NULL;
 ```
+
+
+## MySQL EquiJoin
+
+EquiJoin is an operation that combines multiple tables based on equality or matching column values in associated tables. It is a type of inner join that returns only those rows where the specified columns have matching values.
+
+**Syntax:**
+```sql
+SELECT column_name(s)
+FROM table_name1, table_name2, ..., table_nameN
+WHERE table_name1.column_name = table_name2.column_name;
+```
+OR
+```sql
+SELECT (column_list | *)
+FROM table_name1
+JOIN table_name2
+ON table_name1.column_name = table_name2.column_name;
+```
+
+**Example:**
+
+*Tables: "customer" and "balance"*
+
+```sql
+SELECT cust.customer_name, bal.balance
+FROM customer AS cust, balance AS bal
+WHERE cust.account = bal.account_num;
+```
+
+*Output:*
+
+```plaintext
+| customer_name    | balance |
+|-------------------|---------|
+| John Doe          | 2500    |
+| Jane Smith        | 3500    |
+| Alice Johnson     | 5000    |
+```
+
+**Equi Join Using Three Tables:**
+```sql
+SELECT C.customer_name, C.account, B.balance, I.mobile
+FROM customer AS C, balance AS B, cust_info AS I
+WHERE C.account = B.account_num
+AND B.account_num = I.account_no;
+```
+
+*Output:*
+
+```plaintext
+| customer_name    | account | balance | mobile       |
+|-------------------|---------|---------|--------------|
+| John Doe          | 101     | 2500    | 598675498654 |
+| Jane Smith        | 102     | 3500    | 698853747888 |
+| Alice Johnson     | 103     | 5000    | 987656789666 |
+```
+
+**Difference between Natural Join, Equi Join, and Inner Join:**
+
+| Type           | Description                                                                                                                                               |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Natural Join   | Joins tables based on the same column names and data types. Always returns unique columns in the result set.                                               |
+| Equi Join      | Joins tables based on equality or matching column values. Can return all attributes of both tables along with duplicate columns that match the join condition. |
+| Inner Join     | Joins tables based on the column name specified in the ON clause explicitly. Returns only those rows that exist in both tables.                             |
+```
