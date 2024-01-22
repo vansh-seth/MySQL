@@ -206,3 +206,107 @@ ALTER TABLE Login DROP PRIMARY KEY;
   - Creates a non-clustered index.
 
 Understanding and using primary keys is essential for ensuring data integrity and efficient database operations.
+
+
+## MySQL Foreign Key
+
+A foreign key in MySQL is used to establish a link between tables by referencing the primary key field of one table in another table. It is also known as a referencing key. The foreign key field in one table refers to the primary key field of another table, creating a parent-child relationship. This ensures referential integrity within the database.
+
+MySQL allows the definition of a foreign key constraint on the child table, ensuring that the values in the foreign key column(s) match the primary key column(s) in the referenced parent table.
+
+## MySQL Foreign Key Syntax
+
+Foreign keys can be defined using the `CREATE TABLE` statement or added later using the `ALTER TABLE` statement.
+
+### Using CREATE TABLE Statement:
+
+```sql
+CREATE TABLE child_table (
+    column1 datatype,
+    column2 datatype,
+    ...
+    CONSTRAINT [constraint_name] FOREIGN KEY (foreign_key_column(s))
+    REFERENCES parent_table (parent_key_column(s))
+    ON DELETE reference_option
+    ON UPDATE reference_option
+);
+```
+
+### Using ALTER TABLE Statement:
+
+```sql
+ALTER TABLE child_table
+ADD CONSTRAINT [constraint_name] FOREIGN KEY (foreign_key_column(s))
+REFERENCES parent_table (parent_key_column(s))
+ON DELETE reference_option
+ON UPDATE reference_option;
+```
+
+**Parameters:**
+- **constraint_name:** The name of the foreign key constraint. If not provided, MySQL generates one automatically.
+- **foreign_key_column(s):** The column(s) in the child table that act as foreign keys.
+- **parent_table:** The name of the parent table containing the referenced primary key.
+- **parent_key_column(s):** The column(s) in the parent table serving as the primary key.
+- **reference_option:** Specifies how changes to the parent key affect the foreign key. Options include `CASCADE`, `SET NULL`, `RESTRICT`, `NO ACTION`, and `SET DEFAULT`.
+
+## MySQL Foreign Key Example
+
+Let's go through an example to understand how foreign keys work in MySQL.
+
+Assume we have two tables, `customer` and `contact`. The `customer` table has a primary key `ID`, and the `contact` table has a foreign key `Customer_Id` referencing the `ID` in the `customer` table.
+
+```sql
+CREATE TABLE customer (
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    City VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE contact (
+    ID INT,
+    Customer_Id INT,
+    Customer_Info VARCHAR(50) NOT NULL,
+    Type VARCHAR(50) NOT NULL,
+    INDEX par_ind (Customer_Id),
+    CONSTRAINT fk_customer FOREIGN KEY (Customer_Id)
+    REFERENCES customer(ID)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+```
+
+In this example:
+- The `customer` table has a primary key `ID`.
+- The `contact` table has a foreign key `Customer_Id` referencing the `ID` in the `customer` table.
+- The `ON DELETE CASCADE` and `ON UPDATE CASCADE` options ensure that corresponding rows in the `contact` table are deleted or updated when the referenced row in the `customer` table is deleted or updated.
+
+## Foreign Key Checks
+
+MySQL has a variable called `foreign_key_checks` that controls foreign key checking. By default, it is enabled to enforce referential integrity during normal operations. You can disable foreign key checks in scenarios like dropping a referenced table, importing data, or altering a table with a foreign key.
+
+### Disable Foreign Key Checks:
+
+```sql
+SET foreign_key_checks = 0;
+```
+
+### Enable Foreign Key Checks:
+
+```sql
+SET foreign_key_checks = 1;
+```
+
+Disabling foreign key checks can be useful when you need to perform operations that might violate referential integrity temporarily.
+
+## Dropping Foreign Key
+
+To drop an existing foreign key, you can use the `ALTER TABLE` statement:
+
+```sql
+ALTER TABLE table_name DROP FOREIGN KEY fk_constraint_name;
+```
+
+Replace `table_name` with the name of your table and `fk_constraint_name` with the name of your foreign key constraint. If you don't know the foreign key constraint name, you can use `SHOW CREATE TABLE` to find it.
+
+Understanding and using foreign keys is crucial for maintaining relationships between tables and ensuring data integrity in a relational database.
