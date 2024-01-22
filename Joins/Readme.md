@@ -566,3 +566,42 @@ LEFT JOIN students s2 ON s1.student_id = s2.student_id
 ORDER BY s1.city DESC;
 ```
 
+## MySQL DELETE JOIN
+
+The DELETE JOIN statement in MySQL allows for removing rows from tables using INNER JOIN or LEFT JOIN, providing flexibility in deleting records based on specified conditions.
+
+**DELETE JOIN with INNER JOIN Syntax:**
+```sql
+DELETE target_table
+FROM table1
+INNER JOIN table2 ON table1.joining_column = table2.joining_column
+WHERE condition;
+```
+
+**Example:**
+
+*Tables: "students" and "contacts"*
+
+```sql
+DELETE students, contacts FROM students
+INNER JOIN contacts ON students.student_id = contacts.college_id
+WHERE students.student_id = 4;
+```
+
+**DELETE JOIN with LEFT JOIN Syntax:**
+```sql
+DELETE target_table
+FROM table1
+LEFT JOIN table2 ON table1.key = table2.key
+WHERE table2.key IS NULL;
+```
+
+**Example:**
+
+*Tables: "customers" and "contacts"*
+
+```sql
+DELETE customers FROM customers
+LEFT JOIN contacts ON customers.customer_id = contacts.contact_id
+WHERE cellphone IS NULL;
+```
