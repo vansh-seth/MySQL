@@ -98,3 +98,111 @@ ALTER TABLE Student3 ADD CONSTRAINT uc_rollno_email UNIQUE(Roll_No, Email);
 This statement allows modifying an existing table by adding a unique key to a column.
 
 These unique key constraints help maintain data integrity and ensure a structured and organized approach to accessing information in a MySQL database.
+
+
+## MySQL Primary Key
+
+A primary key in MySQL is a field or a combination of fields that uniquely identifies each record in a table. It ensures that the values in the specified column or columns are unique and cannot be null. Each table can have only one primary key, and it is a critical component for maintaining data integrity.
+
+## Rules for Primary Key
+
+1. **Uniqueness:** The primary key column(s) must contain unique values.
+2. **Non-null:** The primary key column(s) cannot contain null or empty values.
+3. **Single Primary Key:** A table can have only one primary key.
+4. **Data Type:** It is recommended to use `INT` or `BIGINT` data types for primary key columns.
+5. **AUTO_INCREMENT:** The primary key column can use the `AUTO_INCREMENT` attribute to automatically generate sequential values.
+
+## Syntax for CREATE TABLE Statement
+
+### For a single primary key column:
+
+```sql
+CREATE TABLE table_name (
+    col1 datatype PRIMARY KEY,
+    col2 datatype,
+    ...
+);
+```
+
+### For multiple primary key columns:
+
+```sql
+CREATE TABLE table_name (
+    col1 col_definition,
+    col2 col_definition,
+    ...
+    CONSTRAINT [constraint_name] PRIMARY KEY (column_name(s))
+);
+```
+
+**Parameters:**
+- **table_name:** The name of the table.
+- **col1, col2:** Column names in the table.
+- **constraint_name:** The name of the primary key.
+- **column_name(s):** The column name(s) forming the primary key.
+
+## Example
+
+```sql
+-- Example with a single primary key column
+CREATE TABLE Login(
+   login_id INT AUTO_INCREMENT PRIMARY KEY,
+   username VARCHAR(40),
+   password VARCHAR(55),
+   email VARCHAR(55)
+);
+
+-- Example with multiple primary key columns
+CREATE TABLE Students (
+    Student_ID int,
+    Roll_No int,
+    Name varchar(45) NOT NULL,
+    Age int,
+    City varchar(25),
+    Primary Key(Student_ID, Roll_No)
+);
+```
+
+## Alter Table to Add Primary Key
+
+To add a primary key using the `ALTER TABLE` statement:
+
+```sql
+ALTER TABLE table_name ADD PRIMARY KEY (column_list);
+```
+
+**Example:**
+
+```sql
+ALTER TABLE Persons ADD PRIMARY KEY(Person_ID);
+```
+
+## Drop Primary Key
+
+To drop the primary key from a table:
+
+```sql
+ALTER TABLE table_name DROP PRIMARY KEY;
+```
+
+**Example:**
+
+```sql
+ALTER TABLE Login DROP PRIMARY KEY;
+```
+
+## Primary Key vs. Unique Key
+
+- **Primary Key:**
+  - Uniquely identifies each record in a table.
+  - Does not allow NULL values.
+  - Only one primary key per table.
+  - Creates a clustered index.
+
+- **Unique Key:**
+  - Identifies each row uniquely in the absence of a primary key.
+  - Can accept only one NULL value.
+  - A table can have more than one unique key.
+  - Creates a non-clustered index.
+
+Understanding and using primary keys is essential for ensuring data integrity and efficient database operations.
