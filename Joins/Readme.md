@@ -520,4 +520,49 @@ ON customer.customer_id = contact_id
 ORDER BY income;
 ```
 
-*Note: Replace data and column names as needed.*
+
+
+## MySQL SELF JOIN
+
+A SELF JOIN is used to join a table with itself. It is particularly useful when combining data within the same table.
+
+**Syntax:**
+```sql
+SELECT s1.col_name, s2.col_name...
+FROM table1 s1, table1 s2
+WHERE s1.common_col_name = s2.common_col_name;
+```
+
+**Example:**
+
+*Table: "student"*
+
+```sql
+SELECT s1.student_id, s1.name
+FROM student AS s1, student AS s2
+WHERE s1.student_id = s2.student_id
+AND s1.course_id <> s2.course_id;
+```
+
+| student_id | name  |
+| ---------- | ----- |
+| 1          | John  |
+| 2          | Jane  |
+
+**SELF JOIN using INNER JOIN:**
+```sql
+SELECT s1.student_id, s1.name
+FROM student s1
+INNER JOIN student s2 ON s1.student_id = s2.student_id
+AND s1.course_id <> s2.course_id
+GROUP BY student_id;
+```
+
+**SELF JOIN using LEFT JOIN:**
+```sql
+SELECT CONCAT(s1.stud_lname, ' ', s2.stud_fname) AS 'Monitor', s1.city
+FROM students s1
+LEFT JOIN students s2 ON s1.student_id = s2.student_id
+ORDER BY s1.city DESC;
+```
+
