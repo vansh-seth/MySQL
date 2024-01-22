@@ -310,3 +310,100 @@ ALTER TABLE table_name DROP FOREIGN KEY fk_constraint_name;
 Replace `table_name` with the name of your table and `fk_constraint_name` with the name of your foreign key constraint. If you don't know the foreign key constraint name, you can use `SHOW CREATE TABLE` to find it.
 
 Understanding and using foreign keys is crucial for maintaining relationships between tables and ensuring data integrity in a relational database.
+
+
+## MySQL Composite Key
+
+A composite key in MySQL is a combination of two or more columns in a table that uniquely identifies each row. Unlike a single-column key, a composite key relies on the uniqueness of the combined values of multiple columns. It is a type of candidate key formed by the combination of attributes.
+
+## Creating a Composite Key
+
+### Using CREATE TABLE Statement:
+
+```sql
+CREATE TABLE Product (
+    Prod_ID INT NOT NULL,
+    Name VARCHAR(45),
+    Manufacturer VARCHAR(45),
+    PRIMARY KEY (Name, Manufacturer)
+);
+```
+
+In the example above, a composite primary key is created on the `Name` and `Manufacturer` columns in the `Product` table. This means that the combination of values in these two columns must be unique for each row.
+
+### Using ALTER TABLE Statement:
+
+```sql
+ALTER TABLE Student
+ADD PRIMARY KEY (stud_id, subject);
+```
+
+Here, a composite primary key is added to the existing `Student` table using the `ALTER TABLE` statement. The key is formed by the `stud_id` and `subject` columns.
+
+## Verification
+
+To verify the structure of the table and check if the composite key is successfully added, you can use the `DESCRIBE` statement:
+
+```sql
+DESCRIBE Product;
+```
+
+In the output, look for the `Key` column. If you see `PRI` (Primary Key) for the respective columns, it indicates a composite primary key.
+
+## Working with Composite Key
+
+When inserting data into a table with a composite key, you need to ensure that the combination of values in the key columns is unique. Attempting to insert duplicate combinations will result in an error.
+
+```sql
+-- Valid insertion
+INSERT INTO Product (Prod_ID, Name, Manufacturer)
+VALUES (101, 'Soap', 'Hamam');
+
+-- Invalid insertion (duplicate composite key)
+INSERT INTO Product (Prod_ID, Name, Manufacturer)
+VALUES (101, 'Soap', 'Hamam');
+
+-- Valid insertion
+INSERT INTO Product (Prod_ID, Name, Manufacturer)
+VALUES (102, 'Shampoo', 'Teresme');
+```
+
+In the example above, the second insertion is invalid because it attempts to insert a duplicate combination of `Name` and `Manufacturer` values.
+
+### Composite Key Use Cases
+
+1. **Uniquely Identifying Records:**
+   ```sql
+   CREATE TABLE Employee (
+       Emp_ID INT NOT NULL,
+       Dept_ID INT NOT NULL,
+       Name VARCHAR(50),
+       PRIMARY KEY (Emp_ID, Dept_ID)
+   );
+   ```
+   In this case, a composite key ensures that each employee is uniquely identified within a department.
+
+2. **Product Catalog:**
+   ```sql
+   CREATE TABLE Catalog (
+       Product_ID INT NOT NULL,
+       Category VARCHAR(50),
+       Subcategory VARCHAR(50),
+       PRIMARY KEY (Product_ID, Category, Subcategory)
+   );
+   ```
+   Here, a composite key helps categorize products uniquely based on their ID, category, and subcategory.
+
+3. **Academic Records:**
+   ```sql
+   CREATE TABLE Grades (
+       Student_ID INT NOT NULL,
+       Course_ID INT NOT NULL,
+       Semester INT NOT NULL,
+       Grade VARCHAR(2),
+       PRIMARY KEY (Student_ID, Course_ID, Semester)
+   );
+   ```
+   This composite key ensures that each student's grade for a specific course in a semester is uniquely identified.
+
+Using composite keys appropriately depends on the specific requirements of your database design. They are useful for scenarios where a single attribute may not be sufficient to uniquely identify records.
