@@ -1,6 +1,3 @@
-Certainly! Here's the markdown code with table representations for MySQL JOINS in your README.md:
-
-```markdown
 # MySQL JOINS
 
 MySQL JOINS are used with the SELECT statement to retrieve data from multiple tables. They are performed whenever you need to fetch records from two or more tables.
@@ -26,9 +23,8 @@ ON table1.column = table2.column;
 
 **Image representation:**
 
-| MySQL Inner JOIN |
-| --- |
-| ![mysql join 1](path/to/image/mysql_join_1.png) |
+![image](https://github.com/vansh-seth/MySQL/assets/111755254/688aa8c0-e7ee-4ccc-b582-fcaa8d88fe20)
+
 
 **Example:**
 
@@ -71,9 +67,7 @@ ON table1.column = table2.column;
 
 **Image representation:**
 
-| MySQL Left Outer JOIN |
-| --- |
-| ![mysql join 4](path/to/image/mysql_join_4.png) |
+![image](https://github.com/vansh-seth/MySQL/assets/111755254/408347c4-16b0-4e82-943d-093c526b20d7)
 
 **Example:**
 
@@ -116,9 +110,7 @@ ON table1.column = table2.column;
 
 **Image representation:**
 
-| MySQL Right Outer JOIN |
-| --- |
-| ![mysql join 7](path/to/image/mysql_join_7.png) |
+![image](https://github.com/vansh-seth/MySQL/assets/111755254/128b8abd-4a1b-4c58-b68a-d5d4eb54d53a)
 
 **Example:**
 
@@ -145,6 +137,5 @@ ON officers.officer_id = students.student_id;
 | ------------ | --------- | ----------- | ------------ |
 | John Doe     | [address] | Math        | Alice        |
 | [Null]       | [Null]    | English     | Bob          |
-```
 
-Make sure to replace `[address]` and `[Null]` with the actual values or placeholders as needed in your tables. Also, replace `path/to/image/` with the actual path to your image files.
+
