@@ -670,4 +670,84 @@ AND B.account_num = I.account_no;
 | Natural Join   | Joins tables based on the same column names and data types. Always returns unique columns in the result set.                                               |
 | Equi Join      | Joins tables based on equality or matching column values. Can return all attributes of both tables along with duplicate columns that match the join condition. |
 | Inner Join     | Joins tables based on the column name specified in the ON clause explicitly. Returns only those rows that exist in both tables.                             |
+
+
+## MySQL Natural Join
+
+A natural join is an operation that combines rows from two or more tables based on columns with the same name and data type. It implicitly joins tables, and unlike INNER or LEFT JOIN, it does not require the use of the ON or USING clause.
+
+**Syntax:**
+```sql
+SELECT [column_names | *]
+FROM table_name1
+NATURAL JOIN table_name2;
 ```
+
+**Example:**
+
+*Tables: "customer" and "balance"*
+
+```sql
+SELECT cust.customer_name, bal.balance
+FROM customer AS cust
+NATURAL JOIN balance AS bal;
+```
+
+*Output:*
+
+```plaintext
+| customer_name | balance |
+|---------------|---------|
+| Stephen       | 50000.00|
+| Jenifer       | 230000.00|
+| Mathew        | 125000.00|
+| Smith         | 80000.00|
+| David         | 45000.00|
+```
+
+**Natural Join with WHERE Clause:**
+
+```sql
+SELECT cust.customer_name, bal.balance
+FROM customer AS cust
+NATURAL JOIN balance AS bal
+WHERE bal.balance > 50000;
+```
+
+*Output:*
+
+```plaintext
+| customer_name | balance |
+|---------------|---------|
+| Jenifer       | 230000.00|
+| Mathew        | 125000.00|
+```
+
+**Natural Join Using Three Tables:**
+
+```sql
+SELECT C.customer_name, C.account, B.balance, I.mobile
+FROM customer AS C
+NATURAL JOIN balance AS B
+NATURAL JOIN cust_info AS I;
+```
+
+*Output:*
+
+```plaintext
+| customer_name | account | balance | mobile        |
+|---------------|---------|---------|---------------|
+| Stephen       | 1030    | 50000.00| 598675498654  |
+| Jenifer       | 2035    | 230000.00| 698853747888  |
+| Mathew        | 5564    | 125000.00| 234456977555  |
+| Smith         | 4534    | 80000.00| 987656789666  |
+| David         | 7648    | 45000.00| 756489372222  |
+```
+
+**Difference between Natural Join and Inner Join:**
+
+| Criteria       | Natural Join                                          | Inner Join                                       |
+|----------------|-------------------------------------------------------|--------------------------------------------------|
+| Columns        | Returns unique columns in the result set.            | Returns all attributes with duplicate columns.  |
+| Condition      | Joins based on the same column names and data types.  | Joins based on the ON clause condition explicitly.|
+| Result         | Returns records based on common columns.              | Returns only rows that exist in both tables.     |
