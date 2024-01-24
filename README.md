@@ -3,4 +3,4 @@ For comprehensive learning, MySQL Essentials provides extensive documentation an
 
 ## Most of the content can be referred to from Javatpoint.com 
 Here, we have printed the statement using f-strings. To learn more, visit Python String Interpolation
-(https://www.javatpoint.com/mysql-tutorial
+(https://www.javatpoint.com/mysql-tutorial)
